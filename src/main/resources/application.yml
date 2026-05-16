@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: demo-user-service
+
+server:
+  port: 8090
+
+logging:
+  level:
+    com.example.userservice: INFO
