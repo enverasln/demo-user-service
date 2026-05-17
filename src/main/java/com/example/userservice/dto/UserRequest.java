@@ -21,5 +21,8 @@ public record UserRequest(
         @NotBlank(message = "password is required")
         @Size(min = 8, message = "password must be at least 8 characters")
         @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).*$", message = "password must contain at least one uppercase letter and one digit")
-        String password
+        String password,
+
+        @Pattern(regexp = "^\\+[1-9]\\d{1,14}$", message = "phone number must be in E.164 format (e.g., +905551234567)")
+        String phoneNumber
 ) {}
