@@ -20,7 +20,7 @@ class UserControllerPasswordValidationTest {
     @Test
     void rejectsPasswordWithoutUppercaseLetter() throws Exception {
         String body = """
-                { "email": "alice@example.com", "password": "password123" }
+                { "username": "testuser", "email": "alice@example.com", "password": "password123" }
                 """;
 
         mockMvc.perform(post("/users/register")
@@ -32,7 +32,7 @@ class UserControllerPasswordValidationTest {
     @Test
     void rejectsPasswordWithoutDigit() throws Exception {
         String body = """
-                { "email": "alice@example.com", "password": "Password" }
+                { "username": "testuser", "email": "alice@example.com", "password": "Password" }
                 """;
 
         mockMvc.perform(post("/users/register")
@@ -44,7 +44,7 @@ class UserControllerPasswordValidationTest {
     @Test
     void rejectsPasswordShorterThanEightCharacters() throws Exception {
         String body = """
-                { "email": "alice@example.com", "password": "Pass1" }
+                { "username": "testuser", "email": "alice@example.com", "password": "Pass1" }
                 """;
 
         mockMvc.perform(post("/users/register")
@@ -56,12 +56,12 @@ class UserControllerPasswordValidationTest {
     @Test
     void acceptsValidPassword() throws Exception {
         String body = """
-                { "email": "alice@example.com", "password": "Password123" }
+                { "username": "testuser", "email": "alice@example.com", "password": "Password123" }
                 """;
 
         mockMvc.perform(post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpected(status().isOk());
+                .andExpect(status().isCreated());
     }
 }
