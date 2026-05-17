@@ -18,6 +18,6 @@ public class UserService {
 
     public UserResponse register(UserRequest request) {
         long id = users.computeIfAbsent(request.email(), e -> idSeq.incrementAndGet());
-        return new UserResponse(id, request.email(), request.phoneNumber());
+        return new UserResponse(id, request.email());
     }
 }

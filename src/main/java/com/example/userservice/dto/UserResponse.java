@@ -1,3 +1,3 @@
 package com.example.userservice.dto;
 
-public record UserResponse(long id, String email) {}
+public record UserResponse(long id, String email, String phoneNumber) {}
