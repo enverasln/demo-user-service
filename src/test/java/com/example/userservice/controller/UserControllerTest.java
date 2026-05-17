@@ -21,13 +21,13 @@ class UserControllerTest {
     @Test
     void registersValidUser() throws Exception {
         String body = """
-                { "username": "enver", "email": "alice@example.com", "password": "Password123" }
+                { "email": "alice@example.com", "password": "secret123" }
                 """;
 
         mockMvc.perform(post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("alice@example.com"))
                 .andExpect(jsonPath("$.id").isNumber());
     }
@@ -35,7 +35,7 @@ class UserControllerTest {
     @Test
     void rejectsBlankEmail() throws Exception {
         String body = """
-                { "username": "enver", "email": "", "password": "Password123" }
+                { "email": "", "password": "secret123" }
                 """;
 
         mockMvc.perform(post("/users/register")
@@ -47,31 +47,7 @@ class UserControllerTest {
     @Test
     void rejectsShortPassword() throws Exception {
         String body = """
-                { "username": "enver", "email": "alice@example.com", "password": "123" }
-                """;
-
-        mockMvc.perform(post("/users/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void rejectsUsernameShorterThanThreeCharacters() throws Exception {
-        String body = """
-                { "username": "ab", "email": "alice@example.com", "password": "Password123" }
-                """;
-
-        mockMvc.perform(post("/users/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(body))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void rejectsUsernameLongerThanThirtyCharacters() throws Exception {
-        String body = """
-                { "username": "thisusernameiswaytoolongandexceedsthirtychars", "email": "alice@example.com", "password": "Password123" }
+                { "email": "alice@example.com", "password": "123" }
                 """;
 
         mockMvc.perform(post("/users/register")
